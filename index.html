@@ -1,0 +1,1022 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ZACK SHOP - Online Store</title>
+
+<style>
+
+/* =========================
+   GENERAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    color:#222;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    background:linear-gradient(135deg,#071e3d,#1261a0);
+    color:white;
+    padding:18px 7%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#00e676;
+}
+
+.nav{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.cart{
+    background:#00e676;
+    color:#003b1c;
+    padding:10px 17px;
+    border-radius:25px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:430px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:60px 20px;
+
+    background:
+    linear-gradient(rgba(0,25,55,.75),rgba(0,25,55,.75)),
+    url("https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80");
+
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+.hero-content{
+    max-width:750px;
+}
+
+.hero h1{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.hero h1 span{
+    color:#00e676;
+}
+
+.hero p{
+    font-size:20px;
+    margin-bottom:30px;
+}
+
+.shop-btn{
+    display:inline-block;
+    background:#00e676;
+    color:#003b1c;
+    padding:15px 35px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:17px;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-area{
+    width:90%;
+    max-width:1000px;
+    margin:35px auto;
+    display:flex;
+    gap:10px;
+}
+
+.search-area input{
+    flex:1;
+    padding:16px;
+    border:1px solid #ddd;
+    border-radius:30px;
+    outline:none;
+    font-size:16px;
+}
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    margin:30px 0;
+    font-size:30px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+
+    gap:25px;
+    padding-bottom:50px;
+}
+
+.product{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.1);
+    transition:.3s;
+}
+
+.product:hover{
+    transform:translateY(-7px);
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.product img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+}
+
+.product-info{
+    padding:20px;
+}
+
+.product-info h3{
+    margin-bottom:10px;
+}
+
+.price{
+    font-size:22px;
+    font-weight:bold;
+    color:#0074d9;
+    margin:12px 0;
+}
+
+.buy-btn{
+    width:100%;
+    border:none;
+    padding:13px;
+    border-radius:25px;
+    background:#0074d9;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.buy-btn:hover{
+    background:#00549f;
+}
+
+/* =========================
+   ADD PRODUCT
+========================= */
+
+.admin{
+    background:white;
+    width:90%;
+    max-width:700px;
+    margin:40px auto;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,.1);
+}
+
+.admin h2{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.admin input{
+    width:100%;
+    padding:13px;
+    margin:8px 0 15px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
+}
+
+.image-label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+.add-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:30px;
+    background:#00e676;
+    color:#003b1c;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:16px;
+}
+
+/* IMAGE PREVIEW */
+
+.preview{
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    display:none;
+    margin:10px auto;
+    border-radius:15px;
+}
+
+/* =========================
+   CART
+========================= */
+
+.cart-panel{
+    display:none;
+    position:fixed;
+    top:0;
+    right:0;
+    width:380px;
+    max-width:95%;
+    height:100%;
+    background:white;
+    z-index:2000;
+    box-shadow:-5px 0 25px rgba(0,0,0,.25);
+    padding:25px;
+    overflow-y:auto;
+}
+
+.cart-panel h2{
+    margin-bottom:20px;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #ddd;
+    padding:12px 0;
+}
+
+.remove{
+    background:#ff5252;
+    color:white;
+    border:none;
+    padding:6px 10px;
+    border-radius:15px;
+    cursor:pointer;
+}
+
+.total{
+    font-size:23px;
+    font-weight:bold;
+    margin:25px 0;
+}
+
+.checkout{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:30px;
+    background:#00e676;
+    color:#003b1c;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.close-cart{
+    float:right;
+    border:none;
+    background:#ff5252;
+    color:white;
+    border-radius:50%;
+    width:30px;
+    height:30px;
+    cursor:pointer;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#071e3d;
+    color:white;
+    text-align:center;
+    padding:35px 20px;
+    margin-top:50px;
+}
+
+footer strong{
+    color:#00e676;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:650px){
+
+    .nav a{
+        display:none;
+    }
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .cart-panel{
+        width:100%;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="logo">
+        ZACK <span>SHOP</span>
+    </div>
+
+    <div class="nav">
+
+        <a href="#products">
+            Products
+        </a>
+
+        <a href="#add">
+            Add Product
+        </a>
+
+        <div class="cart"
+             onclick="openCart()">
+
+            🛒 Cart
+            (<span id="cartCount">0</span>)
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Welcome to
+            <span>ZACK SHOP</span>
+        </h1>
+
+        <p>
+            Shop quality products at affordable prices.
+            Simple, fast and convenient.
+        </p>
+
+        <a href="#products"
+           class="shop-btn">
+
+            🛍️ SHOP NOW
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SEARCH
+========================= -->
+
+<div class="search-area">
+
+    <input
+        type="text"
+        id="search"
+        placeholder="🔍 Search for products..."
+        onkeyup="searchProducts()"
+    >
+
+</div>
+
+
+<!-- =========================
+     PRODUCTS
+========================= -->
+
+<div class="container"
+     id="products">
+
+    <h2 class="section-title">
+        🛍️ OUR PRODUCTS
+    </h2>
+
+    <div class="products"
+         id="productList">
+
+        <!-- PRODUCTS WILL APPEAR HERE -->
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ADD PRODUCT
+========================= -->
+
+<div class="admin"
+     id="add">
+
+    <h2>
+        ➕ ADD YOUR PRODUCT
+    </h2>
+
+    <label>
+        Product Name
+    </label>
+
+    <input
+        type="text"
+        id="productName"
+        placeholder="Example: Nike Shoes"
+    >
+
+
+    <label>
+        Product Price (KSh)
+    </label>
+
+    <input
+        type="number"
+        id="productPrice"
+        placeholder="Example: 2500"
+    >
+
+
+    <label class="image-label">
+        Product Image
+    </label>
+
+    <input
+        type="file"
+        id="productImage"
+        accept="image/*"
+        onchange="previewImage(event)"
+    >
+
+
+    <img
+        id="preview"
+        class="preview"
+    >
+
+
+    <button
+        class="add-btn"
+        onclick="addProduct()">
+
+        ➕ ADD PRODUCT TO SHOP
+
+    </button>
+
+</div>
+
+
+<!-- =========================
+     CART
+========================= -->
+
+<div class="cart-panel"
+     id="cartPanel">
+
+    <button
+        class="close-cart"
+        onclick="closeCart()">
+
+        ×
+
+    </button>
+
+    <h2>
+        🛒 Shopping Cart
+    </h2>
+
+    <div id="cartItems">
+
+        Your cart is empty.
+
+    </div>
+
+    <div class="total">
+
+        Total:
+        KSh <span id="cartTotal">0</span>
+
+    </div>
+
+    <button
+        class="checkout"
+        onclick="checkout()">
+
+        💳 CHECKOUT
+
+    </button>
+
+</div>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <h2>
+        ZACK <strong>SHOP</strong>
+    </h2>
+
+    <p style="margin-top:10px;">
+        Your trusted online shopping destination.
+    </p>
+
+    <p style="margin-top:20px;">
+        © 2026 ZACK SHOP. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<script>
+
+/* =========================
+   PRODUCTS
+========================= */
+
+let products =
+JSON.parse(localStorage.getItem("zackProducts")) || [
+
+    {
+        name:"Smart Phone",
+        price:15000,
+        image:
+        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80"
+    },
+
+    {
+        name:"Sneakers",
+        price:2500,
+        image:
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80"
+    },
+
+    {
+        name:"Laptop",
+        price:45000,
+        image:
+        "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80"
+    },
+
+    {
+        name:"Headphones",
+        price:3500,
+        image:
+        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80"
+    }
+
+];
+
+
+let cart = [];
+
+
+/* =========================
+   DISPLAY PRODUCTS
+========================= */
+
+function displayProducts(list = products){
+
+    let productList =
+        document.getElementById("productList");
+
+    productList.innerHTML = "";
+
+
+    if(list.length === 0){
+
+        productList.innerHTML =
+        "<p>No products found.</p>";
+
+        return;
+    }
+
+
+    list.forEach((product,index)=>{
+
+        productList.innerHTML += `
+
+            <div class="product">
+
+                <img
+                    src="${product.image}"
+                    alt="${product.name}"
+                >
+
+                <div class="product-info">
+
+                    <h3>
+                        ${product.name}
+                    </h3>
+
+                    <div class="price">
+                        KSh ${Number(product.price).toLocaleString()}
+                    </div>
+
+                    <button
+                        class="buy-btn"
+                        onclick="addToCart(${index})">
+
+                        🛒 ADD TO CART
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================
+   IMAGE PREVIEW
+========================= */
+
+function previewImage(event){
+
+    let preview =
+        document.getElementById("preview");
+
+    let file =
+        event.target.files[0];
+
+    if(file){
+
+        preview.src =
+            URL.createObjectURL(file);
+
+        preview.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* =========================
+   ADD PRODUCT
+========================= */
+
+function addProduct(){
+
+    let name =
+        document.getElementById("productName").value.trim();
+
+    let price =
+        document.getElementById("productPrice").value;
+
+    let imageFile =
+        document.getElementById("productImage").files[0];
+
+
+    if(name === "" ||
+       price === "" ||
+       !imageFile){
+
+        alert(
+            "Please enter the product name, price and image."
+        );
+
+        return;
+    }
+
+
+    let reader =
+        new FileReader();
+
+
+    reader.onload = function(e){
+
+        products.push({
+
+            name:name,
+
+            price:Number(price),
+
+            image:e.target.result
+
+        });
+
+
+        localStorage.setItem(
+            "zackProducts",
+            JSON.stringify(products)
+        );
+
+
+        displayProducts();
+
+
+        document.getElementById(
+            "productName"
+        ).value = "";
+
+
+        document.getElementById(
+            "productPrice"
+        ).value = "";
+
+
+        document.getElementById(
+            "productImage"
+        ).value = "";
+
+
+        document.getElementById(
+            "preview"
+        ).style.display = "none";
+
+
+        alert(
+            "✅ Product added successfully!"
+        );
+
+    };
+
+
+    reader.readAsDataURL(imageFile);
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchProducts(){
+
+    let search =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+
+    let filtered =
+        products.filter(product =>
+            product.name
+            .toLowerCase()
+            .includes(search)
+        );
+
+
+    displayProducts(filtered);
+
+}
+
+
+/* =========================
+   CART
+========================= */
+
+function addToCart(index){
+
+    cart.push(products[index]);
+
+    updateCart();
+
+    alert(
+        products[index].name +
+        " has been added to your cart."
+    );
+
+}
+
+
+function updateCart(){
+
+    let cartItems =
+        document.getElementById("cartItems");
+
+    let cartCount =
+        document.getElementById("cartCount");
+
+    let cartTotal =
+        document.getElementById("cartTotal");
+
+
+    cartCount.innerText =
+        cart.length;
+
+
+    if(cart.length === 0){
+
+        cartItems.innerHTML =
+            "Your cart is empty.";
+
+        cartTotal.innerText =
+            "0";
+
+        return;
+    }
+
+
+    cartItems.innerHTML = "";
+
+
+    let total = 0;
+
+
+    cart.forEach((item,index)=>{
+
+        total += Number(item.price);
+
+
+        cartItems.innerHTML += `
+
+            <div class="cart-item">
+
+                <div>
+
+                    <strong>
+                        ${item.name}
+                    </strong>
+
+                    <br>
+
+                    KSh
+                    ${Number(item.price).toLocaleString()}
+
+                </div>
+
+                <button
+                    class="remove"
+                    onclick="removeFromCart(${index})">
+
+                    Remove
+
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
+
+    cartTotal.innerText =
+        total.toLocaleString();
+
+}
+
+
+function removeFromCart(index){
+
+    cart.splice(index,1);
+
+    updateCart();
+
+}
+
+
+function openCart(){
+
+    document.getElementById(
+        "cartPanel"
+    ).style.display = "block";
+
+}
+
+
+function closeCart(){
+
+    document.getElementById(
+        "cartPanel"
+    ).style.display = "none";
+
+}
+
+
+/* =========================
+   CHECKOUT
+========================= */
+
+function checkout(){
+
+    if(cart.length === 0){
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+    }
+
+
+    let total =
+        cart.reduce(
+            (sum,item)=>
+            sum + Number(item.price),
+            0
+        );
+
+
+    alert(
+        "Checkout Total: KSh " +
+        total.toLocaleString() +
+        "\n\nConnect this button to your payment system such as M-Pesa to accept real payments."
+    );
+
+}
+
+
+/* =========================
+   START WEBSITE
+========================= */
+
+displayProducts();
+
+updateCart();
+
+</script>
+
+</body>
+</html>
+```
